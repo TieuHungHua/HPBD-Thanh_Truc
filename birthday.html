@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&display=swap&subset=vietnamese"
+        rel="stylesheet">
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Baloo 2', cursive;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Nền trời sao */
+        #starCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+            background: black;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 50px;
+        }
+
+        .card {
+            background: white;
+            color: brown;
+            padding: 20px 30px;
+            border-radius: 15px;
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
+            z-index: 1;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card::after {
+            content: "💖";
+            position: absolute;
+
+            right: -40px;
+        }
+
+        .card::before {
+            content: "💖";
+            position: absolute;
+            right: -40px;
+        }
+
+        /* Grid ảnh */
+        .photos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            width: 90%;
+            max-width: 1200px;
+            z-index: 1;
+            place-items: center;
+            justify-content: center;
+            /* Căn toàn bộ grid theo ngang */
+            align-content: center;
+        }
+
+        .photos img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            border-radius: 10px;
+        }
+
+        .photos img.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Modal (lá thư) */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+            z-index: 100;
+        }
+
+        .modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .letter {
+            background: white;
+            color: black;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 800px;
+            text-align: center;
+            font-size: 1.2rem;
+            position: relative;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: red;
+        }
+
+        @keyframes fadeIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Canvas nền trời sao -->
+    <canvas id="starCanvas"></canvas>
+
+    <!-- Thẻ chúc mừng -->
+    <div class="card" id="birthdayCard">Chúc Mừng Sinh Nhật</div>
+
+    <!-- Ảnh -->
+    <div class="photos" id="photoGrid">
+        <img src="public/hpbd1.jpg" alt="Ảnh 1">
+
+        <img src="public/hpbd3.jpg" alt="Ảnh 3">
+        <img src="public/hpbd4.jpg" alt="Ảnh 4">
+        <img src="public/hpbd5.jpg" alt="Ảnh 5">
+        <img src="public/hpbd6.jpg" alt="Ảnh 6">
+        <img src="public/hpbd7.jpg" alt="Ảnh 7">
+        <img src="public/hpbd8.jpg" alt="Ảnh 8">
+        <img src="public/hpbd9.jpg" alt="Ảnh 9">
+        <img src="public/hpbd10.jpg" alt="Ảnh 10">
+        <img src="public/hpbd2.jpg" alt="Ảnh 2">
+        <img src="public/hpbd11.jpg" alt="Ảnh 11">
+        <img src="public/hpbd12.jpg" alt="Ảnh 12">
+        <img src="public/hpbd13.jpg" alt="Ảnh 13">
+        <img src="public/hpbd14.jpg" alt="Ảnh 14">
+        <img src="public/hpbd15.jpg" alt="Ảnh 15">
+        <img src="public/hpbd16.jpg" alt="Ảnh 16">
+        <img src="public/hpbd17.jpg" alt="Ảnh 17">
+        <img src="public/hpbd18.jpg" alt="Ảnh 18">
+        <img src="public/hpbd19.jpg" alt="Ảnh 19">
+        <img src="public/hpbd20.jpg" alt="Ảnh 20">
+        <img src="public/hpbd21.jpg" alt="Ảnh 21">
+    </div>
+
+    <!-- Modal lá thư -->
+    <div class="modal" id="modal">
+        <div class="letter">
+            <span class="close-btn" id="closeBtn">&times;</span>
+            <h2>💌 Gửi đến Thanh Trúc 💌</h2>
+            <p>
+                Hôm nay là một ngày thật đặc biệt – ngày mà một thiên thần bé nhỏ đã đến với thế giới này. <br>
+                Chúc Bặp của tớ luôn rạng rỡ như ánh mặt trời, dịu dàng như ánh trăng và lung linh như những vì sao.
+                🌟<br>
+                Mong rằng mỗi buổi sáng khi thức dậy, Bặp sẽ cảm thấy tim mình đầy ắp niềm vui, <br>
+                và mỗi tối đi ngủ đều mang theo những giấc mơ thật ngọt ngào. 💖<br>
+
+                Trong suốt chặng đường sắp tới, mong bạn sẽ luôn mạnh mẽ, <br>
+                vững vàng trước mọi khó khăn và không bao giờ quên rằng mình xứng đáng nhận những điều tốt đẹp nhất.
+                ✨<br>
+
+                Cảm ơn bạn đã xuất hiện, mang đến tiếng cười và những kỷ niệm thật đáng trân trọng. <br>
+                Mong rằng chúng ta sẽ còn cơ hội cùng nhau đi qua thật nhiều mùa sinh nhật nữa. 🎂<br><br>
+
+                💗 Mãi bên Bạn 💗<br>
+                – Người luôn chúc bạn hạnh phúc –
+            </p>
+            <a href="https://www.facebook.com/lenguyen.tuonglinh.5">Quý khách có gì phức tạp muốn nói thì nhắn
+                mình@!</a>
+        </div>
+    </div>
+
+    <script>
+        /* ==================== NỀN TRỜI SAO & MƯA SAO BĂNG ==================== */
+        const canvas = document.getElementById('starCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const stars = [];
+        const shootingStars = [];
+
+        function createStars() {
+            for (let i = 0; i < 200; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 1.5,
+                    alpha: Math.random(),
+                    speed: Math.random() * 0.02
+                });
+            }
+        }
+
+        function drawStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "white";
+            stars.forEach(star => {
+                ctx.globalAlpha = star.alpha;
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                ctx.fill();
+                star.alpha += star.speed;
+                if (star.alpha <= 0 || star.alpha >= 1) {
+                    star.speed = -star.speed;
+                }
+            });
+        }
+
+        function createShootingStar() {
+            shootingStars.push({
+                x: Math.random() * canvas.width,
+                y: 0,
+                len: Math.random() * 80 + 10,
+                speed: Math.random() * 6 + 4,
+                angle: Math.PI / 4
+            });
+        }
+
+        function drawShootingStars() {
+            shootingStars.forEach((s, i) => {
+                ctx.strokeStyle = "white";
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(s.x, s.y);
+                ctx.lineTo(s.x - s.len * Math.cos(s.angle), s.y - s.len * Math.sin(s.angle));
+                ctx.stroke();
+                s.x += s.speed;
+                s.y += s.speed;
+                if (s.x > canvas.width || s.y > canvas.height) {
+                    shootingStars.splice(i, 1);
+                }
+            });
+        }
+
+        function animateStars() {
+            drawStars();
+            drawShootingStars();
+            if (Math.random() < 0.005) { // tỉ lệ xuất hiện sao băng
+                createShootingStar();
+            }
+            requestAnimationFrame(animateStars);
+        }
+
+        createStars();
+        animateStars();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        /* ==================== ẢNH HIỆN NGẪU NHIÊN ==================== */
+        const images = document.querySelectorAll(".photos img");
+        const indexes = Array.from(images.keys());
+        let delay = 0;
+        while (indexes.length > 0) {
+            const randomIndex = Math.floor(Math.random() * indexes.length);
+            const imgIndex = indexes.splice(randomIndex, 1)[0];
+            setTimeout(() => {
+                images[imgIndex].classList.add("show");
+            }, delay);
+            delay += 300;
+        }
+
+        /* ==================== MODAL ==================== */
+        const card = document.getElementById("birthdayCard");
+        const modal = document.getElementById("modal");
+        const closeBtn = document.getElementById("closeBtn");
+
+        card.addEventListener("click", () => {
+            modal.classList.add("show");
+        });
+
+        closeBtn.addEventListener("click", () => {
+            modal.classList.remove("show");
+        });
+
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) {
+                modal.classList.remove("show");
+            }
+        });
+    </script>
+</body>
+
+</html>
