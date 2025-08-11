@@ -123,11 +123,25 @@
             color: black;
             padding: 30px;
             border-radius: 10px;
-            max-width: 800px;
+            max-width: 700px;
             text-align: center;
             font-size: 1.2rem;
             position: relative;
             animation: fadeIn 0.4s ease;
+        }
+
+        /* Các style này sẽ chỉ được áp dụng cho màn hình có chiều rộng tối đa là 768px (thường là điện thoại và máy tính bảng nhỏ) */
+        @media (max-width: 768px) {
+            .letter {
+                padding: 20px;
+                /* Giảm padding cho không gian hẹp hơn */
+                font-size: 1rem;
+                /* Giảm kích thước font để dễ đọc hơn trên điện thoại */
+                margin: 15px;
+                /* Thêm margin để nội dung không bị dính vào viền màn hình */
+                max-width: 90%;
+                /* Chiếm 90% chiều rộng màn hình để không bị quá to */
+            }
         }
 
         .close-btn {
