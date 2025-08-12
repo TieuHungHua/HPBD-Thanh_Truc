@@ -169,6 +169,24 @@
                 opacity: 1;
             }
         }
+         
+        @keyframes wiggle {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(2deg);
+  }
+  75% {
+    transform: rotate(-2deg);
+  }
+}
+
+.note {
+  color: #2196F3;
+  animation: wiggle 0.5s infinite; /* Thêm dòng này để tạo hiệu ứng */
+}
+
     </style>
 </head>
 
@@ -177,7 +195,8 @@
     <canvas id="starCanvas"></canvas>
 
     <!-- Thẻ chúc mừng -->
-    <div class="card" id="birthdayCard">Chúc Mừng Sinh Nhật</div>
+    <div class="card" id="birthdayCard">Chúc Mừng Sinh Nhật </div>
+    <div class="note">Mở ở đây nè! 🌟</div>
 
     <!-- Ảnh -->
     <div class="photos" id="photoGrid">
