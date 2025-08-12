@@ -1,153 +1,172 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8">
-    <title>Matrix Countdown</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap&subset=vietnamese"
-        rel="stylesheet">
-    <audio id="myAudio" autoplay muted loop>
-    <source src="public/Be The Sky.mp3" type="audio/mpeg">
-    </audio>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiểm tra ngày sinh</title>
     <style>
-        #myAudio {
-  display: none;
-}
         body {
+            font-family: Arial, sans-serif;
             margin: 0;
             overflow: hidden;
-            background: black;
-            font-family: 'Dancing Script', cursive;
+            background-color: #000; /* Nền đen cho hiệu ứng pháo hoa */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
-        #countdown {
-            font-size: 5vw;
-            /* nhỏ hơn, bạn có thể chỉnh 3vw hay 5vw tùy */
-            color: pink;
-            white-space: nowrap;
-            /* ép chữ luôn 1 hàng */
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-shadow: 0 0 10px pink, 0 0 20px hotpink;
+        /* Nền pháo hoa */
+        #fireworks-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        /* Khung quà tặng */
+        .gift-box {
+            position: relative;
+            z-index: 2; /* Đặt lớp quà tặng ở trên */
+            width: 90vw;
+            max-width: 450px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 10px solid #E6C0C0; /* Viền màu hồng */
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.7);
             text-align: center;
+            animation: pulse 2s infinite;
         }
 
-        #nextBtn {
-            display: none;
-            padding: 10px 20px;
-            margin: 10px;
-            font-size: 1.2rem;
+        /* Hiệu ứng nhấp nháy cho khung quà */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        h1 {
+            color: #E6C0C0; /* Màu hồng đậm */
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+        
+        input[type="text"] {
+            width: 80%;
+            padding: 12px;
+            margin-top: 15px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            text-align: center; /* Căn giữa chữ trong input */
+        }
+        
+        button {
+            background-color: #E6C0C0;
+            color: black;
+            padding: 12px 25px;
             border: none;
-            border-radius: 10px;
-            background: rgb(118, 169, 214);
-            color: white;
+            border-radius: 5px;
             cursor: pointer;
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #db8a8a;
+        }
+
+        #result {
             margin-top: 20px;
-            position: absolute;
-            top: 70%;
-            left: 50%;
-            transform: translateX(-50%);
+            font-size: 18px;
+            font-weight: bold;
         }
-
-        #nextBtn:hover {
-            background: rgb(57, 96, 110);
-
+        .goi-i {
+            color: rgb(173, 168, 168);
         }
-        @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-.fade-in-text {
-    opacity: 0; /* Đảm bảo văn bản ban đầu bị ẩn */
-    animation: fadeIn 3s forwards; /* 3s là thời gian hiệu ứng, forwards giữ trạng thái cuối cùng */
-}
-
     </style>
 </head>
-
 <body>
+    <div id="fireworks-container"></div>
     
-    <canvas id="matrix"></canvas>
-    <div id="countdown"></div>
-    <button id="nextBtn" onclick="window.location.href='birthday.html'">Tiếp tục 🎁</button>
+    <div class="gift-box">
+        <h1>Sinh nhật của bạn là ngày:</h1>
+        <p class="goi-i">Gợi ý mẫu: [20/09/2003]</p>
+        <input type="text" id="birthdayInput" placeholder="Là ngày ...">
+        <button onclick="checkBirthday()">Mở quà!</button>
+        <p id="result"></p>
+    </div>
 
     <script>
-        const canvas = document.getElementById("matrix");
-        const ctx = canvas.getContext("2d");
-        const nextBtn = document.getElementById("nextBtn");
+        // JavaScript cho pháo hoa
+        const container = document.getElementById('fireworks-container');
+        function createFirework() {
+            const firework = document.createElement('div');
+            firework.className = 'firework';
+            const size = Math.random() * 5 + 5;
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            const duration = Math.random() * 1.5 + 1.5;
 
-        canvas.height = window.innerHeight;
-        canvas.width = window.innerWidth;
+            firework.style.width = `${size}px`;
+            firework.style.height = `${size}px`;
+            firework.style.left = `${x}px`;
+            firework.style.top = `${y}px`;
+            firework.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 75%)`;
+            firework.style.animation = `explode ${duration}s ease-out forwards`;
+            container.appendChild(firework);
+            firework.addEventListener('animationend', () => { firework.remove(); });
+        }
 
-        const letters = "HAPPYBIRTHDAY".split("");
-        const fontSize = 16;
-        const columns = canvas.width / fontSize;
-        const drops = Array.from({ length: columns }, () => 1);
+        const styleSheet = document.createElement("style");
+        styleSheet.type = "text/css";
+        styleSheet.innerText = `
+            @keyframes explode {
+                0% { transform: scale(0); opacity: 1; }
+                50% { transform: scale(2); opacity: 1; }
+                100% { transform: scale(3); opacity: 0; }
+            }
+            .firework {
+                position: absolute;
+                border-radius: 50%;
+                box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.5);
+            }
+        `;
+        document.head.appendChild(styleSheet);
+        setInterval(createFirework, 300);
 
-        function drawMatrix() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "#f88";
-            ctx.font = fontSize + "px monospace";
+        // JavaScript kiểm tra ngày sinh
+        function checkBirthday() {
+            const inputDate = document.getElementById('birthdayInput').value;
+            const resultElement = document.getElementById('result');
+            const correctBirthday = "16/08/2003"; // Thay đổi ngày sinh tại đây
 
-            for (let i = 0; i < drops.length; i++) {
-                const text = letters[Math.floor(Math.random() * letters.length)];
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+            if (inputDate === correctBirthday) {
+                resultElement.textContent = "Chúc mừng, câu trả lời chính xác! 🎉";
+                resultElement.style.color = "#28a745";
+                setTimeout(() => {
+                // Hành động sau 2 giây
+                    resultElement.textContent = "Chờ chút nhé ...";
 
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
+                    // Hành động sau 4 giây (tổng cộng), tức là 2 giây sau hành động trên
+                    // Bạn có thể lồng một hàm setTimeout khác vào đây hoặc tính toán lại thời gian.
+                    // Cách tốt hơn là sử dụng một hàm setTimeout duy nhất với tổng thời gian chờ.
+                    setTimeout(() => {
+                        window.location.href = 'hpbd.html';
+                    }, 2000); // 2000ms sau hành động trước, tức là 4000ms tổng cộng
+                }, 2000);
+            } else {
+                resultElement.textContent = "Câu trả lời không chính xác :((, hãy thử lại.";
+                resultElement.style.color = "#dc3545";
             }
         }
-        setInterval(drawMatrix, 50); // chậm hơn
-
-        // Countdown
-        let count = 5;
-        const countdownEl = document.getElementById("countdown");
-        countdownEl.textContent = count;
-
-        const timer = setInterval(() => {
-            count--;
-            if (count > 0) {
-                countdownEl.textContent = count;
-            } else if (count === 0) {
-                countdownEl.textContent = "🎉 HAPPY BIRTHDAY THANH TRÚC 💗";
-                countdownEl.style.color = "#DDAAAA"
-                countdownEl.classList.add("fade-in-text"); // Thêm class hiệu ứng mờ dần
-                nextBtn.style.display = "inline-block";
-                nextBtn.classList.add("fade_in_text")
-                clearInterval(timer);
-            }
-        }, 1000);
-        window.onload = function() {
-    // Lấy thẻ audio thông qua id
-        var audio = document.getElementById("myAudio");
-    
-    // Đặt âm lượng thành 50% (0.5)
-        audio.volume = 0.3;
-
-        const nextBtn = document.getElementById("nextBtn");
-
-
-// Sự kiện khi chuột di vào nút
-nextBtn.addEventListener('mouseenter', () => {
-    nextBtn.textContent = 'Bạn có thích mình không? 😁';
-});
-
-// Sự kiện khi chuột rời khỏi nút
-nextBtn.addEventListener('mouseleave', () => {
-    nextBtn.textContent = 'Tiếp tục 🎁';
-});
-  };
     </script>
 </body>
-
 </html>
