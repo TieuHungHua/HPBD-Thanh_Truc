@@ -79,7 +79,8 @@
         /* Grid ảnh */
         .photos {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
             gap: 10px;
             width: 90%;
             max-width: 1200px;
@@ -88,10 +89,13 @@
             justify-content: center;
             /* Căn toàn bộ grid theo ngang */
             align-content: center;
+            display: grid;
+            margin: 0 auto;
+
         }
 
         .photos img {
-            width: 100%;
+            width: fit-content;
             height: auto;
             object-fit: cover;
             opacity: 0;
@@ -120,6 +124,11 @@
             visibility: hidden;
             transition: opacity 0.3s ease;
             z-index: 100;
+            overflow-y: auto;
+        }
+
+        body.modal-open {
+            overflow-y: hidden;
         }
 
         .modal.show {
@@ -195,6 +204,69 @@
             animation: wiggle 0.5s infinite;
             /* Thêm dòng này để tạo hiệu ứng */
         }
+
+        .flip-card {
+            width: 100%;
+            max-width: 200px;
+            height: 400px;
+            perspective: 1000px;
+            margin: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .flip-card {
+                max-width: 160px;
+                height: auto;
+            }
+        }
+
+        .flip-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            border-radius: 10px;
+            padding-top: 10px;
+        }
+
+        .flip-card.flipped .flip-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-front,
+        .flip-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+        }
+
+        .flip-front img {
+            width: 100%;
+            text-align: center;
+            object-fit: cover;
+            /* phóng và cắt ảnh để lấp đầy khung */
+            border-radius: 10px;
+            display: block;
+            margin: 12px;
+            /* tránh khoảng trống dưới ảnh */
+        }
+
+        .flip-back {
+            height: 300px;
+            background-color: white;
+            color: brown;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            transform: rotateY(180deg);
+            font-size: 1rem;
+        }
     </style>
 </head>
 
@@ -205,32 +277,247 @@
     <!-- Thẻ chúc mừng -->
     <div class="note">Mở ở đây nè! 🌟</div>
     <div class="card" id="birthdayCard">Chúc Mừng Sinh Nhật </div>
-
+    <div class="note">Mỗi tấm ảnh là 1 lá thư gửi đếm bạn ớ 🌟</div>
 
     <!-- Ảnh -->
     <div class="photos" id="photoGrid">
-        <img src="public/hpbd1.jpg" alt="Ảnh 1">
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-front">
+                    <img src="public/hpbd1.jpg" alt="Ảnh 1">
+                </div>
+                <div class="flip-back">
+                    <p> Hi, lâu rồi không nhắn tin, chúc bạn sn vui vẻ né 💖</p>
+                </div>
+            </div>
+        </div>
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-front">
+                    <img src="public/hpbd2.jpg" alt="Ảnh 2">
+                </div>
+                <div class="flip-back">
+                    <p> Tuổi mới, chúc bạn hạnh phúc theo cách bạn chọn… 🌻</p>
+                </div>
+            </div>
+        </div>
 
-        <img src="public/hpbd3.jpg" alt="Ảnh 3">
-        <img src="public/hpbd4.jpg" alt="Ảnh 4">
-        <img src="public/hpbd5.jpg" alt="Ảnh 5">
-        <img src="public/hpbd6.jpg" alt="Ảnh 6">
-        <img src="public/hpbd7.jpg" alt="Ảnh 7">
-        <img src="public/hpbd8.jpg" alt="Ảnh 8">
-        <img src="public/hpbd9.jpg" alt="Ảnh 9">
-        <img src="public/hpbd10.jpg" alt="Ảnh 10">
-        <img src="public/hpbd2.jpg" alt="Ảnh 2">
-        <img src="public/hpbd11.jpg" alt="Ảnh 11">
-        <img src="public/hpbd12.jpg" alt="Ảnh 12">
-        <img src="public/hpbd13.jpg" alt="Ảnh 13">
-        <img src="public/hpbd14.jpg" alt="Ảnh 14">
-        <img src="public/hpbd15.jpg" alt="Ảnh 15">
-        <img src="public/hpbd16.jpg" alt="Ảnh 16">
-        <img src="public/hpbd17.jpg" alt="Ảnh 17">
-        <img src="public/hpbd18.jpg" alt="Ảnh 18">
-        <img src="public/hpbd19.jpg" alt="Ảnh 19">
-        <img src="public/hpbd20.jpg" alt="Ảnh 20">
-        <img src="public/hpbd21.jpg" alt="Ảnh 21">
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-front">
+                    <img src="public/hpbd3.jpg" alt="Ảnh 3">
+                </div>
+                <div class="flip-back">
+                    <p>Đây là món quà mình chuẩn bị cho bạn ớ 🌟</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-front">
+                    <img src="public/hpbd4.jpg" alt="Ảnh 4">
+                </div>
+                <div class="flip-back">
+                    <p>Mỗi ngày đều là một ngày đặc biệt 🌈</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-front">
+                    <img src="public/hpbd5.jpg" alt="Ảnh 5">
+                </div>
+                <div class="flip-back">
+                    <p>Chúc bạn hạnh phúc từ những điều nhỏ bé 🎂</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-front">
+                    <img src="public/hpbd9.jpg" alt="Ảnh 9">
+                </div>
+                <div class="flip-back">
+                    <p>Mình đang ở 1 góc phòng nào đó tạo cho bạn trang web này nè - trời sao 💫</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-front">
+                    <img src="public/hpbd6.jpg" alt="Ảnh 6">
+                </div>
+                <div class="flip-back">
+                    <p>Luôn có người bên cạnh khi bạn cần 💐</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-front">
+                    <img src="public/hpbd7.jpg" alt="Ảnh 7">
+                </div>
+                <div class="flip-back">
+                    <p>Mong mọi khoảng cách sẽ ngắn lại, dù giữa chúng ta nó đang dài ra 🌸</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-front">
+                    <img src="public/hpbd8.jpg" alt="Ảnh 8">
+                </div>
+                <div class="flip-back">
+                    <p>Đừng áp lực về gia đình quá, bạn có 1 gia đình tuyệt vời đó 🌼</p>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-front">
+                    <img src="public/hpbd10.jpg" alt="Ảnh 10">
+                </div>
+                <div class="flip-back">
+                    <p>Tuổi mới – mong bạn nhẹ lòng hơn 🌹</p>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-front">
+                    <img src="public/hpbd12.jpg" alt="Ảnh 12">
+                </div>
+                <div class="flip-back">
+                    <p>Hành trình mới sẽ mang bạn đến những chân trời mới 🌏</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-front">
+                    <img src="public/hpbd13.jpg" alt="Ảnh 13">
+                </div>
+                <div class="flip-back">
+                    <p>Lớn rồi không được khóc nhè, lớn rồi thì nên để cảm xúc nàm con tim mình sắc đá hơn hì 🎨</p>
+                </div>
+            </div>
+        </div>
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-front">
+                    <img src="public/hpbd17.jpg" alt="Ảnh 17">
+                </div>
+                <div class="flip-back">
+                    <p>Cuộc sống này phải nếm đủ vị thì bạn mới sống trọn vẹn được 🎉</p>
+                </div>
+            </div>
+        </div>
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-front">
+                    <img src="public/hpbd14.jpg" alt="Ảnh 14">
+                </div>
+                <div class="flip-back">
+                    <p>Cuộc đời này vốn nhiều sắc màu, có thể không thấy nhưng có thể cảm nhận được. Đúng không? 🌈</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-front">
+                    <img src="public/hpbd11.jpg" alt="Ảnh 11">
+                </div>
+                <div class="flip-back">
+                    <p>Gặp được nhiều người tốt và câu chuyện hay, bớt mấy người toxic như là ông chủ quán đó đi hì 🎁
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-front">
+                    <img src="public/hpbd15.jpg" alt="Ảnh 15">
+                </div>
+                <div class="flip-back">
+                    <p>Bạn hãy tự tin câu nói tôi làm được, như các mà mình động viên bản thân í ☀️</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-front">
+                    <img src="public/hpbd16.jpg" alt="Ảnh 16">
+                </div>
+                <div class="flip-back">
+                    <p>Con người luôn có 2 mặt tốt xấu, bạn đừng nên nhìn 1 mặt nha 🌟</p>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-front">
+                    <img src="public/hpbd18.jpg" alt="Ảnh 18">
+                </div>
+                <div class="flip-back">
+                    <p>Con người là như thế mà, nhận được khủng hoảng đầu tiên là phát điên. 💌</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-front">
+                    <img src="public/hpbd19.jpg" alt="Ảnh 19">
+                </div>
+                <div class="flip-back">
+                    <p>Sau đó là bình tĩnh, tiếp tới là chấp nhận, cuối cùng là tìm cách giải quyết 🍀</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-front">
+                    <img src="public/hpbd20.jpg" alt="Ảnh 20">
+                </div>
+                <div class="flip-back">
+                    <p>Thời gian không xoa dịu đi nổi đau,chỉ làm vết thương xâu thêm🕊️</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-front">
+                    <img src="public/hpbd21.jpg" alt="Ảnh 21">
+                </div>
+                <div class="flip-back">
+                    <p>Bạn đừng thân nữa được không, mình thật sự rất thích bạn 💕</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     </div>
 
     <!-- Modal lá thư -->
@@ -245,7 +532,7 @@
                 Mong rằng mỗi buổi sáng khi thức dậy, Bặp sẽ cảm thấy tim mình đầy ắp niềm vui,
                 và mỗi tối đi ngủ đều mang theo những giấc mơ thật ngọt ngào. 💖<br>
 
-                Trong suốt chặng đường sắp tới, mong bạn sẽ luôn mạnh mẽ, <br>
+                Trong suốt chặng đường sắp tới, mong bạn sẽ luôn mạnh mẽ,
                 vững vàng trước mọi khó khăn và không bao giờ quên rằng mình xứng đáng nhận những điều tốt đẹp nhất.
                 ✨<br>
 
@@ -264,6 +551,13 @@
 
     <script>
         /* ==================== NỀN TRỜI SAO & MƯA SAO BĂNG ==================== */
+
+        document.querySelectorAll(".flip-card").forEach(card => {
+            card.addEventListener("click", () => {
+                card.classList.toggle("flipped");
+            });
+        });
+
         const canvas = document.getElementById('starCanvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
