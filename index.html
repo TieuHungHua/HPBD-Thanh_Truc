@@ -6,6 +6,9 @@
     <title>Matrix Countdown</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap&subset=vietnamese"
         rel="stylesheet">
+    <audio id="myAudio" controls autoplay>
+    <source src="public/Be The Sky.mp3" type="audio/mpeg">
+    </audio>
     <style>
         body {
             margin: 0;
@@ -15,7 +18,7 @@
         }
 
         #countdown {
-            font-size: 4vw;
+            font-size: 5vw;
             /* nhỏ hơn, bạn có thể chỉnh 3vw hay 5vw tùy */
             color: pink;
             white-space: nowrap;
@@ -31,6 +34,7 @@
         #nextBtn {
             display: none;
             padding: 10px 20px;
+            margin: 10px;
             font-size: 1.2rem;
             border: none;
             border-radius: 10px;
@@ -46,11 +50,26 @@
 
         #nextBtn:hover {
             background: rgb(57, 96, 110);
+
         }
+        @keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in-text {
+    opacity: 0; /* Đảm bảo văn bản ban đầu bị ẩn */
+    animation: fadeIn 3s forwards; /* 3s là thời gian hiệu ứng, forwards giữ trạng thái cuối cùng */
+}
     </style>
 </head>
 
 <body>
+    
     <canvas id="matrix"></canvas>
     <div id="countdown"></div>
     <button id="nextBtn" onclick="window.location.href='birthday.html'">Tiếp tục 🎁</button>
@@ -98,10 +117,32 @@
             } else if (count === 0) {
                 countdownEl.textContent = "🎉 HAPPY BIRTHDAY THANH TRÚC 💗";
                 countdownEl.style.color = "#DDAAAA"
+                countdownEl.classList.add("fade-in-text"); // Thêm class hiệu ứng mờ dần
                 nextBtn.style.display = "inline-block";
+                nextBtn.classList.add("fade_in_text")
                 clearInterval(timer);
             }
         }, 1000);
+        window.onload = function() {
+    // Lấy thẻ audio thông qua id
+        var audio = document.getElementById("myAudio");
+    
+    // Đặt âm lượng thành 50% (0.5)
+        audio.volume = 0.3;
+
+        const nextBtn = document.getElementById("nextBtn");
+
+
+// Sự kiện khi chuột di vào nút
+nextBtn.addEventListener('mouseenter', () => {
+    nextBtn.textContent = 'Bạn có thích mình không? 😁';
+});
+
+// Sự kiện khi chuột rời khỏi nút
+nextBtn.addEventListener('mouseleave', () => {
+    nextBtn.textContent = 'Tiếp tục 🎁';
+});
+  };
     </script>
 </body>
 
