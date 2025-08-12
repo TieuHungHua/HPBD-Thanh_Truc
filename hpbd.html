@@ -11,8 +11,9 @@
     </audio>
     <style>
         #myAudio {
-  display: none;
-}
+            display: none;
+        }
+
         body {
             margin: 0;
             overflow: hidden;
@@ -55,25 +56,28 @@
             background: rgb(57, 96, 110);
 
         }
+
         @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
+            from {
+                opacity: 0;
+            }
 
-.fade-in-text {
-    opacity: 0; /* Đảm bảo văn bản ban đầu bị ẩn */
-    animation: fadeIn 3s forwards; /* 3s là thời gian hiệu ứng, forwards giữ trạng thái cuối cùng */
-}
+            to {
+                opacity: 1;
+            }
+        }
 
+        .fade-in-text {
+            opacity: 0;
+            /* Đảm bảo văn bản ban đầu bị ẩn */
+            animation: fadeIn 3s forwards;
+            /* 3s là thời gian hiệu ứng, forwards giữ trạng thái cuối cùng */
+        }
     </style>
 </head>
 
 <body>
-    
+
     <canvas id="matrix"></canvas>
     <div id="countdown"></div>
     <button id="nextBtn" onclick="window.location.href='birthday.html'">Tiếp tục 🎁</button>
@@ -127,35 +131,35 @@
                 clearInterval(timer);
             }
         }, 1000);
-        window.onload = function() {
-    // Lấy thẻ audio thông qua id
-        var audio = document.getElementById("myAudio");
-    
-    // Đặt âm lượng thành 50% (0.5)
-        audio.volume = 0.3;
+        window.onload = function () {
+            // Lấy thẻ audio thông qua id
+            var audio = document.getElementById("myAudio");
 
-        const nextBtn = document.getElementById("nextBtn");
+            // Đặt âm lượng thành 50% (0.5)
+            audio.volume = 0.3;
+
+            const nextBtn = document.getElementById("nextBtn");
 
 
-// Sự kiện khi chuột di vào nút
-        nextBtn.addEventListener('mouseenter', () => {
-            nextBtn.textContent = 'Bạn có thích mình không? 😁';
+            // Sự kiện khi chuột di vào nút
+            nextBtn.addEventListener('mouseenter', () => {
+                nextBtn.textContent = 'Bạn có muốn gặp mình không?';
+            });
+
+            // Sự kiện khi chuột rời khỏi nút
+            nextBtn.addEventListener('mouseleave', () => {
+                nextBtn.textContent = 'Tiếp tục 🎁';
+            });
+        };
+        document.addEventListener('DOMContentLoaded', function () {
+            var audio = document.getElementById('myAudio');
+            var unmuteButton = document.getElementById('unmuteButton');
+
+            unmuteButton.addEventListener('click', function () {
+                audio.muted = false; // Tắt chế độ im lặng
+                unmuteButton.style.display = 'none'; // Ẩn nút sau khi đã bật tiếng
+            });
         });
-
-        // Sự kiện khi chuột rời khỏi nút
-        nextBtn.addEventListener('mouseleave', () => {
-            nextBtn.textContent = 'Tiếp tục 🎁';
-        });
-  };
-  document.addEventListener('DOMContentLoaded', function() {
-  var audio = document.getElementById('myAudio');
-  var unmuteButton = document.getElementById('unmuteButton');
-
-  unmuteButton.addEventListener('click', function() {
-    audio.muted = false; // Tắt chế độ im lặng
-    unmuteButton.style.display = 'none'; // Ẩn nút sau khi đã bật tiếng
-  });
-});
     </script>
 </body>
 
