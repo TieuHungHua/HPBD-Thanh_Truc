@@ -7,6 +7,7 @@
     <title>Happy Birthday</title>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&display=swap&subset=vietnamese"
         rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
     <audio id="myAudio" autoplay loop>
         <source src="public/HBPD.mp3" type="audio/mpeg">
@@ -21,7 +22,7 @@
         body {
             margin: 0;
             padding: 0;
-            height: 100%;
+            height: 95%;
             font-family: 'Baloo 2', cursive;
             color: white;
             overflow-x: hidden;
@@ -48,10 +49,10 @@
         .card {
             background: white;
             color: brown;
-            padding: 20px 30px;
+            padding: 10px 10px;
             border-radius: 15px;
             font-size: 1.5rem;
-            margin-bottom: 30px;
+            margin-bottom: 8px;
             position: relative;
             cursor: pointer;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -79,19 +80,25 @@
         /* Grid ảnh */
         .photos {
             display: grid;
-
             grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
             gap: 10px;
             width: 90%;
             max-width: 1200px;
-            z-index: 1;
-            place-items: center;
+            margin: 0;
+            align-items: center;
             justify-content: center;
-            /* Căn toàn bộ grid theo ngang */
-            align-content: center;
-            display: grid;
-            margin: 0 auto;
+            place-items: center;
+            /* Đảm bảo item xếp từ trên xuống */
+        }
 
+        /* Mobile: chia 2 cột */
+        @media (max-width: 768px) {
+            .photos {
+                grid-template-columns: repeat(2, 1fr);
+                align-items: center;
+                justify-content: center;
+                place-items: center;
+            }
         }
 
         .photos img {
@@ -208,15 +215,15 @@
         .flip-card {
             width: 100%;
             max-width: 200px;
-            height: 400px;
+            height: 320px;
             perspective: 1000px;
-            margin: 10px;
+            margin: 5px;
         }
 
         @media (max-width: 480px) {
             .flip-card {
                 max-width: 160px;
-                height: auto;
+                height: 300px;
             }
         }
 
@@ -229,7 +236,7 @@
             transition: transform 0.8s;
             transform-style: preserve-3d;
             border-radius: 10px;
-            padding-top: 10px;
+
         }
 
         .flip-card.flipped .flip-inner {
@@ -243,6 +250,9 @@
             height: 100%;
             backface-visibility: hidden;
             border-radius: 10px;
+            place-content: center;
+            padding: 10px;
+            box-sizing: border-box;
         }
 
         .flip-front img {
@@ -252,7 +262,7 @@
             /* phóng và cắt ảnh để lấp đầy khung */
             border-radius: 10px;
             display: block;
-            margin: 12px;
+            margin: 0;
             /* tránh khoảng trống dưới ảnh */
         }
 
@@ -266,6 +276,74 @@
             padding: 10px;
             transform: rotateY(180deg);
             font-size: 1rem;
+        }
+
+        /*  */
+        .confirm-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            /* Ẩn ban đầu */
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+        }
+
+        /* Nội dung hộp thoại */
+        .confirm-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 400px;
+            font-family: 'Pacifico', cursive;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .confirm-box h3 {
+            margin-bottom: 20px;
+        }
+
+        .confirm-btns {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .confirm-btns button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-yes {
+            background-color: #76c061;
+            /* Nâu taupe ấm */
+            color: white;
+        }
+
+        .btn-no {
+            background-color: #455A64;
+            /* Xám xanh than */
+            color: white;
+        }
+
+        /* Hiệu ứng hiện lên */
+        @keyframes fadeIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
     </style>
 </head>
@@ -356,7 +434,16 @@
                 </div>
             </div>
         </div>
-
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-front">
+                    <img src="public/hpbd18.jpg" alt="Ảnh 18">
+                </div>
+                <div class="flip-back">
+                    <p>Mình không đủ để bạn dựa vào. 💌</p>
+                </div>
+            </div>
+        </div>
         <div class="flip-card">
             <div class="flip-inner">
                 <div class="flip-front">
@@ -411,7 +498,7 @@
                     <img src="public/hpbd13.jpg" alt="Ảnh 13">
                 </div>
                 <div class="flip-back">
-                    <p>Lớn rồi không được khóc nhè, lớn rồi thì nên để cảm xúc nàm con tim mình sắc đá hơn hì 🎨</p>
+                    <p>Lớn rồi không được khóc nhè, lớn rồi thì nên để cảm xúc làm con tim mình sâu sắc hơn hì 🎨</p>
                 </div>
             </div>
         </div>
@@ -421,17 +508,17 @@
                     <img src="public/hpbd17.jpg" alt="Ảnh 17">
                 </div>
                 <div class="flip-back">
-                    <p>Cuộc sống này phải nếm đủ vị thì bạn mới sống trọn vẹn được 🎉</p>
+                    <p>Cuộc sống này phải nếm đủ vị thì bạn mới sống trọn vẹn được, nên đừng sợ đau 🎉</p>
                 </div>
             </div>
         </div>
         <div class="flip-card">
             <div class="flip-inner">
                 <div class="flip-front">
-                    <img src="public/hpbd14.jpg" alt="Ảnh 14">
+                    <img src="public/hpbd25.jpg" alt="Ảnh 14">
                 </div>
                 <div class="flip-back">
-                    <p>Cuộc đời này vốn nhiều sắc màu, có thể không thấy nhưng có thể cảm nhận được. Đúng không? 🌈</p>
+                    <p>Thế giới này vốn nhiều sắc màu, có thể không thấy nhưng có thể cảm nhận được. Đúng không? 🌈</p>
                 </div>
             </div>
         </div>
@@ -455,7 +542,7 @@
                     <img src="public/hpbd15.jpg" alt="Ảnh 15">
                 </div>
                 <div class="flip-back">
-                    <p>Bạn hãy tự tin câu nói tôi làm được, như các mà mình động viên bản thân í ☀️</p>
+                    <p>Bạn hãy tự tin với câu nói "Tôi làm được!", như cách mà mình động viên bản thân í ☀️</p>
                 </div>
             </div>
         </div>
@@ -466,23 +553,11 @@
                     <img src="public/hpbd16.jpg" alt="Ảnh 16">
                 </div>
                 <div class="flip-back">
-                    <p>Con người luôn có 2 mặt tốt xấu, bạn đừng nên nhìn 1 mặt nha 🌟</p>
+                    <p>Con người luôn có 2 mặt tốt xấu, bạn đừng nên cố ép bản thân chỉ thấy mặt tốt nha 🌟</p>
                 </div>
             </div>
         </div>
 
-
-
-        <div class="flip-card">
-            <div class="flip-inner">
-                <div class="flip-front">
-                    <img src="public/hpbd18.jpg" alt="Ảnh 18">
-                </div>
-                <div class="flip-back">
-                    <p>Con người là như thế mà, nhận được khủng hoảng đầu tiên là phát điên. 💌</p>
-                </div>
-            </div>
-        </div>
 
         <div class="flip-card">
             <div class="flip-inner">
@@ -490,7 +565,7 @@
                     <img src="public/hpbd19.jpg" alt="Ảnh 19">
                 </div>
                 <div class="flip-back">
-                    <p>Sau đó là bình tĩnh, tiếp tới là chấp nhận, cuối cùng là tìm cách giải quyết 🍀</p>
+                    <p>Đọc tới này rồi mà còn không nhắn mình là còn dỗi à 🍀</p>
                 </div>
             </div>
         </div>
@@ -501,7 +576,7 @@
                     <img src="public/hpbd20.jpg" alt="Ảnh 20">
                 </div>
                 <div class="flip-back">
-                    <p>Thời gian không xoa dịu đi nổi đau,chỉ làm vết thương xâu thêm🕊️</p>
+                    <p>Thời gian không xoa dịu đi nổi đau,chỉ làm vết thương xâu thêm 🕊️</p>
                 </div>
             </div>
         </div>
@@ -512,7 +587,63 @@
                     <img src="public/hpbd21.jpg" alt="Ảnh 21">
                 </div>
                 <div class="flip-back">
-                    <p>Bạn đừng thân nữa được không, mình thật sự rất thích bạn 💕</p>
+                    <p>Có nhiều khi mình nghĩ là tụi mình điên vãi 🎈</p>
+                </div>
+            </div>
+        </div>
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-front">
+                    <img src="public/hpbd22.jpg" alt="Ảnh 21">
+                </div>
+                <div class="flip-back">
+                    <p>Đứa thì khùng, đứa thì bệnh tâm lí (mát mát) 😕</p>
+                </div>
+            </div>
+        </div>
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-front">
+                    <img src="public/hpbd23.jpg" alt="Ảnh 21">
+                </div>
+                <div class="flip-back">
+                    <p>Thế mà dính với nhau tới giờ, nể luôn 🙄</p>
+                </div>
+            </div>
+        </div>
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-front">
+                    <img src="public/hpbd24.jpg" alt="Ảnh 21">
+                </div>
+                <div class="flip-back">
+                    <p>Minh xin lỗi vì những điều mình gây ra </p>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="flip-card special-card">
+            <div class="flip-inner">
+                <div class="flip-front">
+                    <img src="public/hpbd14.jpg" alt="Ảnh 25">
+                </div>
+                <div class="flip-back">
+                    <p>Let me marry you 💕</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Xác nhận -->
+        <div class="confirm-overlay" id="confirmModal">
+            <div class="confirm-box">
+                <p style="color: rgb(50, 65, 65);">Bạn có thể đánh cược vào mình không? <br> Mình cần sự chắc chắn của
+                    chúng
+                    mình, đường đi sẽ khó. <br> Nếu bạn không ngại thì đặt cược vào mình xem.</p>
+                <div class="confirm-btns">
+                    <button class="btn-yes">Có</button>
+                    <button class="btn-no">Không</button>
                 </div>
             </div>
         </div>
@@ -550,9 +681,42 @@
     </div>
 
     <script>
-        /* ==================== NỀN TRỜI SAO & MƯA SAO BĂNG ==================== */
+        const specialCard = document.querySelector(".special-card");
+        const confirmModal = document.getElementById("confirmModal");
+        const btnYes = confirmModal.querySelector(".btn-yes");
+        const btnNo = confirmModal.querySelector(".btn-no");
 
-        document.querySelectorAll(".flip-card").forEach(card => {
+        // Khi click vào thẻ đặc biệt
+        specialCard.addEventListener("click", function (e) {
+            // Nếu chưa lật -> chỉ mở modal, KHÔNG lật
+            if (!this.classList.contains("flipped")) {
+                confirmModal.style.display = "flex";
+            }
+            // Nếu đã lật rồi thì cho lật lại bình thường
+            else {
+                this.classList.remove("flipped");
+            }
+        });
+
+        // Khi bấm "Có" -> đóng modal và lật thẻ
+        btnYes.addEventListener("click", function () {
+            confirmModal.style.display = "none";
+            specialCard.classList.add("flipped");
+        });
+
+        // Khi bấm "Không" -> đóng modal, không lật thẻ
+        btnNo.addEventListener("click", function () {
+            confirmModal.style.display = "none";
+        });
+        //////////////////////////
+
+        /* ==================== NỀN TRỜI SAO & MƯA SAO BĂNG ==================== */
+        var audio = document.getElementById("myAudio");
+
+        // Đặt âm lượng thành 50% (0.5)
+        audio.volume = 0.3;
+
+        document.querySelectorAll(".flip-card:not(.special-card)").forEach(card => {
             card.addEventListener("click", () => {
                 card.classList.toggle("flipped");
             });
