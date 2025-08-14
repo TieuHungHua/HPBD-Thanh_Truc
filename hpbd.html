@@ -160,6 +160,16 @@
                 unmuteButton.style.display = 'none'; // Ẩn nút sau khi đã bật tiếng
             });
         });
+
+        if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            // Chỉ chạy khi là thiết bị di động
+            document.addEventListener('touchstart', function playMusicOnce() {
+                var audio = document.getElementById("myAudio");
+                audio.play()
+
+            });
+        }
+    </script>
     </script>
 </body>
 
