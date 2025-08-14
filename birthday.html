@@ -178,6 +178,54 @@
             color: red;
         }
 
+        @media (max-width: 768px) {
+            .modal {
+                padding: 10px;
+                /* Có khoảng cách khi cuộn trên mobile */
+                align-items: flex-start;
+                padding: 0;
+                /* Modal bắt đầu từ trên xuống, tránh cảm giác nặng ở giữa */
+            }
+
+            .letter {
+                padding: 15px;
+                font-size: 1rem;
+                line-height: 1.5;
+                /* Giúp dễ đọc hơn */
+                margin-top: 20px;
+                margin-bottom: 20px;
+                max-width: 100%;
+                /* Chiếm toàn bộ chiều ngang */
+                border-radius: 8px;
+            }
+
+            .close-btn {
+                top: 8px;
+                right: 10px;
+                font-size: 1.3rem;
+            }
+
+            .letter h2 {
+                font-size: 1.2rem;
+                margin-bottom: 10px;
+            }
+
+            .letter p {
+                font-size: 0.95rem;
+            }
+
+            .letter a {
+                display: inline-block;
+                margin-top: 15px;
+                font-size: 1rem;
+                color: #007aff;
+                /* Giống màu link iOS */
+                text-decoration: underline;
+                word-break: break-word;
+                /* Chia từ nếu link dài */
+            }
+        }
+
         @keyframes fadeIn {
             from {
                 transform: translateY(-20px);
@@ -345,6 +393,28 @@
                 opacity: 1;
             }
         }
+
+        .thumbnail {
+            width: 80px;
+            /* Kích thước ngang */
+            height: auto;
+            /* Giữ tỉ lệ ảnh */
+            border-radius: 10px;
+            /* Bo góc mềm mại */
+            margin: 10px auto;
+            /* Căn giữa với margin */
+            display: block;
+            /* Để margin auto hoạt động */
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            /* Cho thấy có thể bấm */
+            transition: transform 0.2s ease;
+        }
+
+        .thumbnail:hover {
+            transform: scale(1.05);
+            /* Tạo hiệu ứng phóng nhẹ khi hover */
+        }
     </style>
 </head>
 
@@ -353,9 +423,12 @@
     <canvas id="starCanvas"></canvas>
 
     <!-- Thẻ chúc mừng -->
+
+
     <div class="note">Mở thiệp ở đây nè! 🌟</div>
     <div class="card" id="birthdayCard">Chúc Mừng Sinh Nhật!</div>
-    <div class="note">Mỗi tấm ảnh là một lá thư tớ gửi đến cậu đấy! Xem từng cái nhá 🌟</div>
+    <div class="note">Mỗi tấm ảnh là một lá thư tớ gửi đến cậu đấy!🌟</div>
+    <div class="note">Xem từng cái nhá 🌟</div>
     <div class="note">Cẩn thận nha, ảnh cuối bất ngờ lắm... 😉</div>
     <!-- Ảnh -->
     <div class="photos" id="photoGrid">
@@ -383,7 +456,7 @@
         <div class="flip-card">
             <div class="flip-inner">
                 <div class="flip-front">
-                    <img src="public/hpbd3.jpg" alt="Ảnh 3">
+                    <img src="public/hpbd26.jpg" alt="Ảnh 3">
                 </div>
                 <div class="flip-back">
                     <p>Đây là món quà mình chuẩn bị cho bạn ớ 🌟</p>
@@ -458,7 +531,7 @@
         <div class="flip-card">
             <div class="flip-inner">
                 <div class="flip-front">
-                    <img src="public/hpbd8.jpg" alt="Ảnh 8">
+                    <img src="public/hpbd3.jpg" alt="Ảnh 8">
                 </div>
                 <div class="flip-back">
                     <p>Đừng áp lực về gia đình quá, bạn có 1 gia đình tuyệt vời đó 🌼</p>
