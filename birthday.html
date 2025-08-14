@@ -493,9 +493,9 @@
 
     <div class="note">Mở thiệp ở đây nè! 🌟</div>
     <div class="card" id="birthdayCard">Chúc Mừng Sinh Nhật!</div>
-    <div class="note">Mỗi tấm ảnh là một lá thư tớ gửi đến cậu đấy!🌟</div>
+    <div class="note">Mỗi tấm ảnh là một lá thư mình gửi đến bạn đấy!🌟</div>
     <div class="note">Xem từng cái nhá 🌟</div>
-    <div class="note">Cẩn thận nha, ảnh cuối bất ngờ lắm... 😉</div>
+    <div class="note">Cẩn thận, ảnh cuối bất ngờ lắm... 😉</div>
     <!-- Ảnh -->
     <div class="photos" id="photoGrid">
         <div class="flip-card">
@@ -854,11 +854,11 @@
             confirmModal.style.display = "none";
             specialCard.classList.add("flipped");
             currentTimes = audio.currentTime;
-            audio.src = "public/Gui em.mp3";
+            audio.src = "public/yes.mp3";
             audio.load(); // đảm bảo browser load file mới
             isSwap = true;
             audio.addEventListener('loadedmetadata', () => {
-                audio.currentTime = 30.5; // bắt đầu từ giây 30
+                audio.currentTime = 0; // bắt đầu từ giây 30
                 audio.play(); // phát nhạc (sẽ chạy vì có click trước đó)
             }, { once: true }); // chỉ chạy 1 lần
             const congratsOverlay = document.getElementById("congratsOverlay");
