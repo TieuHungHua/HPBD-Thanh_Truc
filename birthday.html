@@ -355,7 +355,7 @@
     <!-- Thẻ chúc mừng -->
     <div class="note">Mở thiệp ở đây nè! 🌟</div>
     <div class="card" id="birthdayCard">Chúc Mừng Sinh Nhật!</div>
-    <div class="note">Mỗi tấm ảnh là một lá thư tớ gửi đến cậu đấy! 🌟</div>
+    <div class="note">Mỗi tấm ảnh là một lá thư tớ gửi đến cậu đấy! Xem từng cái nhá 🌟</div>
     <div class="note">Cẩn thận nha, ảnh cuối bất ngờ lắm... 😉</div>
     <!-- Ảnh -->
     <div class="photos" id="photoGrid">
@@ -638,9 +638,12 @@
         <!-- Modal Xác nhận -->
         <div class="confirm-overlay" id="confirmModal">
             <div class="confirm-box">
-                <p style="color: rgb(50, 65, 65);">Bạn có thể đánh cược vào mình không? <br> Mình cần sự chắc chắn của
-                    chúng
-                    mình, đường đi sẽ khó. <br> Nếu bạn không ngại thì đặt cược vào mình xem.</p>
+                <p style="color: rgb(50, 65, 65);">
+                    Bạn có sẵn sàng đặt niềm tin vào mình không? <br>
+                    Mình cần sự đồng lòng và chắc chắn từ cả hai chúng ta, vì con đường phía trước sẽ không dễ dàng.
+                    <br>
+                    Nếu bạn không ngại, hãy thử đặt cược vào mình nhé.
+                </p>
                 <div class="confirm-btns">
                     <button class="btn-yes">Có</button>
                     <button class="btn-no">Không</button>
@@ -697,24 +700,41 @@
                 this.classList.remove("flipped");
             }
         });
-
-        // Khi bấm "Có" -> đóng modal và lật thẻ
-        btnYes.addEventListener("click", function () {
-            confirmModal.style.display = "none";
-            specialCard.classList.add("flipped");
-        });
-
-        // Khi bấm "Không" -> đóng modal, không lật thẻ
-        btnNo.addEventListener("click", function () {
-            confirmModal.style.display = "none";
-        });
-        //////////////////////////
-
-        /* ==================== NỀN TRỜI SAO & MƯA SAO BĂNG ==================== */
         var audio = document.getElementById("myAudio");
 
         // Đặt âm lượng thành 50% (0.5)
         audio.volume = 0.3;
+        // Khi bấm "Có" -> đóng modal và lật thẻ
+        var currentTimes = 0;
+        btnYes.addEventListener("click", function () {
+            confirmModal.style.display = "none";
+            specialCard.classList.add("flipped");
+            currentTimes = audio.currentTime;
+            audio.src = "public/Gui em.mp3";
+            audio.load(); // đảm bảo browser load file mới
+
+            audio.addEventListener('loadedmetadata', () => {
+                audio.currentTime = 30.5; // bắt đầu từ giây 30
+                audio.play(); // phát nhạc (sẽ chạy vì có click trước đó)
+            }, { once: true }); // chỉ chạy 1 lần
+        });
+
+        // Khi bấm "Không" -> đóng modal, không lật thẻ
+        btnNo.addEventListener("click", function () {
+
+            confirmModal.style.display = "none";
+            audio.src = "public/HBPD.mp3";
+            audio.load(); // đảm bảo browser load file mới
+
+            audio.addEventListener('loadedmetadata', () => {
+                audio.currentTime = currentTimes; // bắt đầu từ giây 30
+                audio.play(); // phát nhạc (sẽ chạy vì có click trước đó)
+            })
+        });
+        //////////////////////////
+
+        /* ==================== NỀN TRỜI SAO & MƯA SAO BĂNG ==================== */
+
 
         document.querySelectorAll(".flip-card:not(.special-card)").forEach(card => {
             card.addEventListener("click", () => {
