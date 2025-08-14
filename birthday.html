@@ -706,13 +706,14 @@
         audio.volume = 0.3;
         // Khi bấm "Có" -> đóng modal và lật thẻ
         var currentTimes = 0;
+        var isSwap = false;
         btnYes.addEventListener("click", function () {
             confirmModal.style.display = "none";
             specialCard.classList.add("flipped");
             currentTimes = audio.currentTime;
             audio.src = "public/Gui em.mp3";
             audio.load(); // đảm bảo browser load file mới
-
+            isSwap = true;
             audio.addEventListener('loadedmetadata', () => {
                 audio.currentTime = 30.5; // bắt đầu từ giây 30
                 audio.play(); // phát nhạc (sẽ chạy vì có click trước đó)
@@ -723,13 +724,17 @@
         btnNo.addEventListener("click", function () {
 
             confirmModal.style.display = "none";
-            audio.src = "public/HBPD.mp3";
-            audio.load(); // đảm bảo browser load file mới
+            if (isSwap) {
+                audio.src = "public/HBPD.mp3";
+                audio.load(); // đảm bảo browser load file mới
 
-            audio.addEventListener('loadedmetadata', () => {
-                audio.currentTime = currentTimes; // bắt đầu từ giây 30
-                audio.play(); // phát nhạc (sẽ chạy vì có click trước đó)
-            })
+                audio.addEventListener('loadedmetadata', () => {
+                    audio.currentTime = currentTimes; // bắt đầu từ giây 30
+                    audio.play(); // phát nhạc (sẽ chạy vì có click trước đó)
+                })
+                isSwap = false;
+            }
+
         });
         //////////////////////////
 
