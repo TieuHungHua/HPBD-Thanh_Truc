@@ -415,6 +415,72 @@
             transform: scale(1.05);
             /* Tạo hiệu ứng phóng nhẹ khi hover */
         }
+
+        .congrats-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 192, 203, 0.8);
+            /* Hồng nhạt */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            color: white;
+            font-weight: bold;
+            z-index: 999;
+            /* Trên tất cả */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease;
+            backdrop-filter: blur(3px);
+            /* Làm mờ nền */
+        }
+
+        .congrats-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .congrats-message {
+            animation: popIn 0.6s ease forwards;
+            text-align: center;
+            text-shadow: 0 0 10px rgb(248, 129, 188), 0 0 20px rgb(252, 26, 26);
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .congrats-message {
+                font-size: 1.2rem;
+                /* Nhỏ hơn để vừa màn hình điện thoại */
+                line-height: 1.5;
+            }
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 
@@ -718,7 +784,7 @@
                     Nếu bạn không ngại, hãy thử đặt cược vào mình nhé.
                 </p>
                 <div class="confirm-btns">
-                    <button class="btn-yes">Có</button>
+                    <button class="btn-yes">Mình đồng ý</button>
                     <button class="btn-no">Không</button>
                 </div>
             </div>
@@ -726,7 +792,11 @@
     </div>
 
     </div>
-
+    <div class="congrats-overlay" id="congratsOverlay">
+        <div class="congrats-message">
+            💕 Cảm ơn bạn… vì đã tin và chọn mình.
+        </div>
+    </div>
     <!-- Modal lá thư -->
     <div class="modal" id="modal">
         <div class="letter">
@@ -791,6 +861,13 @@
                 audio.currentTime = 30.5; // bắt đầu từ giây 30
                 audio.play(); // phát nhạc (sẽ chạy vì có click trước đó)
             }, { once: true }); // chỉ chạy 1 lần
+            const congratsOverlay = document.getElementById("congratsOverlay");
+            congratsOverlay.classList.add("show");
+
+            // Tự ẩn sau 3 giây
+            setTimeout(() => {
+                congratsOverlay.classList.remove("show");
+            }, 3000);
         });
 
         // Khi bấm "Không" -> đóng modal, không lật thẻ
