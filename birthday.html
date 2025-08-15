@@ -769,7 +769,7 @@
                     <img class="special-img" src="public/hpbd14.jpg" alt="Ảnh 25">
                 </div>
                 <div class="flip-back">
-                    <p>Chúng mình đông hành nha 💕</p>
+                    <p id="hoi">Cùng nhau bước tiếp nhé 💕</p>
                 </div>
             </div>
         </div>
@@ -779,7 +779,7 @@
             <div class="confirm-box">
                 <p style="color: rgb(50, 65, 65);">
                     Bạn có sẵn sàng đặt niềm tin vào mình không? <br>
-                    Mình cần sự đồng lòng và chắc chắn từ cả hai chúng ta, vì con đường phía trước sẽ không dễ dàng.
+                    Mình cần sự đồng lòng và chắc chắn từ cả hai chúng ta, mình chỉ sợ không cho bạn cuộc sống tốt.
                     <br>
                     Nếu bạn không ngại, hãy thử đặt cược vào mình nhé.
                 </p>
@@ -850,10 +850,12 @@
         // Khi bấm "Có" -> đóng modal và lật thẻ
         var currentTimes = 0;
         var isSwap = false;
+        const hoi = document.getElementById("hoi");
         btnYes.addEventListener("click", function () {
             confirmModal.style.display = "none";
             specialCard.classList.add("flipped");
             currentTimes = audio.currentTime;
+            hoi.textContent = "Cùng nhau bước tiếp nhé 💕";
             audio.src = "public/yes.mp3";
             audio.load(); // đảm bảo browser load file mới
             isSwap = true;
@@ -874,6 +876,10 @@
         btnNo.addEventListener("click", function () {
 
             confirmModal.style.display = "none";
+            hoi.textContent = "Không sao, chúng ta vẫn là bạn mòooo";
+
+            specialCard.classList.add("flipped");
+
             if (isSwap) {
                 audio.src = "public/HBPD.mp3";
                 audio.load(); // đảm bảo browser load file mới
