@@ -107,7 +107,6 @@
         const ctx = canvas.getContext("2d");
         canvas.height = window.innerHeight;
         canvas.width = window.innerWidth;
-
         const letters = "HAPPYBIRTHDAY".split("");
         const fontSize = 16;
         const columns = canvas.width / fontSize;
@@ -155,7 +154,7 @@
         window.onload = function () {
             var audio = document.getElementById("myAudio");
             audio.volume = 0.3;
-
+            audio.currentTime = 1;
             nextBtn.addEventListener('mouseenter', () => {
                 nextBtn.textContent = 'Bạn có muốn gặp mình không?';
             });

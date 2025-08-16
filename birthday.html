@@ -71,10 +71,32 @@
             right: -40px;
         }
 
+        @keyframes pointing {
+            0% {
+                transform: translateY(-50%) translateX(0);
+            }
+
+            50% {
+                transform: translateY(-50%) translateX(-10px);
+            }
+
+            100% {
+                transform: translateY(-50%) translateX(0);
+            }
+        }
+
         .card::before {
-            content: "💖";
+            content: "";
             position: absolute;
-            right: -40px;
+            right: 270px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 20px solid red;
+            animation: pointing 1s infinite;
         }
 
         /* Grid ảnh */
@@ -481,6 +503,11 @@
                 opacity: 1;
             }
         }
+
+        .blank {
+            width: 100%;
+            margin-top: 20px;
+        }
     </style>
 </head>
 
@@ -491,8 +518,11 @@
     <!-- Thẻ chúc mừng -->
 
 
-    <div class="note">Mở thiệp ở đây nè! 🌟</div>
+    <div class="note">Mở thiệp ở đây nè! 🌟
+    </div>
     <div class="card" id="birthdayCard">Chúc Mừng Sinh Nhật!</div>
+
+    <div class="blank"></div>
     <div class="note">Mỗi tấm ảnh là một lá thư mình gửi đến bạn đấy!🌟</div>
     <div class="note">Xem từng cái nhá 🌟</div>
     <div class="note">Cẩn thận, ảnh cuối bất ngờ lắm... 😉</div>
